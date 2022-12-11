@@ -1,9 +1,10 @@
 # Sonos over VPN
 
-This project describes how to acces and control your Sonos speakers using the app over a VPN connection.
+This project describes how to access and control your Sonos speakers using the app over a VPN connection.
 
 I don't have a particularly good reason for doing this. I was motivated to figure it out because Sonos 
-and the network protocols they use make this difficult ... not necessarily deliberately.
+and the network protocols they use make this difficult ... not necessarily deliberately; it was a 
+challenge and a chance to learn a thing or two.
 
 This could easily be adapted to work in scenarios where your Sonos speakers are on a different VLAN to
 your wifi for example, which could be useful.
@@ -20,8 +21,8 @@ this setup requires:
 * port forwarding from the internet side of your ISP router to an internal machine
 * the ability to configure static routes
 
-I've seen ISP routers that can't configure static routes so it's worth verifying this before you try
-and get it working.
+I've seen ISP routers that can't configure static routes so it's worth verifying this before you go any
+further.
 
 Port forwarding is pretty standard. For my router, from the web management console, browse to:
 
@@ -61,7 +62,7 @@ and getting confused.
 
 ### Problem #2: Multicast Service Discovery 
 
-A multicast router is needed to forward the packets between networks. The build installs `pimd` for this
+A multicast router is needed to forward the packets between networks. The build installs 'pimd' for this
 and it works seemlessly with the default configuration.
 
 ### Problem #3: TTL Set To 1
@@ -69,7 +70,7 @@ and it works seemlessly with the default configuration.
 Forwarding the packest isn't enough on it's own - as the packet TTL is 1, the packets won't make it into
 the other network without some additional work.
 
-A `iptables` rule (in the `mangle` table) is used to increment the TTL in the packets and send them 
+A 'iptables' rule (in the 'mangle' table) is used to increment the TTL in the packets and send them 
 happily into the second network.
 
 This is setup automatically by the build.
@@ -85,8 +86,8 @@ There are two consequences of this:
 * can't have NAT anywhere between the app and the speakers
 * the speakers need to be able to route traffic back to the VPN network
 
-There are a number of ways to make this work and they're things you will need to do manually and two
-approaches are documented below.
+There are a number of ways to make this work and they're things you will need to do manually and one
+approach is documented below.
 
 ## Prerequisites
 
@@ -131,27 +132,22 @@ The two lines of interest look like this:
     inet 192.168.1.21  netmask 255.255.255.0  broadcast 192.168.1.255
     ether b8:27:eb:81:53:de  txqueuelen 1000  (Ethernet)
 
-Log into your ISP router and create the reservation. This will be different for all routers; buf for mine,
+Log into your ISP router and create the reservation. This will be different for all routers; for mine,
 the process was:
 
-Navigate through the menus to:
-
-    Connectivity -> Local Network
-
-Click on `DHCP Reservations` and enter in the name, MAC address and IP address from above. 
+Navigate through the menus to: Connectivity -> Local Network. Click on 'DHCP Reservations' and enter
+the name, MAC address and IP address from above. 
 
 ### VPN Endpoint
 
-To use your VPN, you need a way to access it from outside your home/work network - this can be either a
-DNS name or an IP address.
+To use your VPN, you need a way to access the endpoint from outside your home/work network - this can 
+be either a DNS name or an IP address.
 
 For the DNS name, you can use a dynamic DNS provider and a lot of ISP routers have built in support
 for dynamic DNS. Now's a good time to set that up if you plan on using it.
 
 This can also just be an IP address. However, this will probably change from time to time so you'll need 
-to update it in your client config occasionally.
-
-A simple way to get your public IP address is with this:
+to update it in your client config occasionally. A simple way to get your public IP address is with this:
 
     dig @resolver1.opendns.com +short myip.opendns.com
 
@@ -168,19 +164,19 @@ There are three steps to building this system:
 Terraform is where the configurations of your local network, the vpn network and the wireguard clients
 are defined.
 
-Copy the file `terraform.tfvars.examples` to `terraform.tfvars` and modify it for your configuration. It
+Copy the file 'terraform.tfvars.examples' to 'terraform.tfvars' and modify it for your configuration. It
 should all be quite self explanatory.
 
-You can add as many clients as you like to the client list and terraform will create a configuration 
-to load into the wireguard client.
+You can add as many clients as you like to the client list and terraform will create configurations 
+for each client.
 
 To run terraform:
 
     terraform init
     terraform apply
 
-Once it finishes, the output is written to the directory `local`. The client configurations can be found
-in the `clients` subdirectory.
+Once it finishes, the output is written to the directory 'local'. The client configurations can be found
+in the 'clients' subdirectory.
 
 ### Ansible
 
@@ -203,10 +199,7 @@ I'll describe how these work on my ISP provided router, but yours will probably 
 
 ### Port Forwarding
 
-In the router web management console, browse to:
-
-    Security -> Apps and Gaming -> Single Port Forwarding
-
+In the router web management console, browse to: Security -> Apps and Gaming -> Single Port Forwarding.
 Select 'Add new Single Port Forwarding' and in the dialog, enter the following:
 
     Name: Sonos
@@ -219,11 +212,8 @@ If you have changed the port in the configuration, you'll need to change those p
 
 ### Static Routes
 
-In the router web management console, browse to:
-
-    Connectivity -> Advanced Routing
-
-Select 'Add Static Route' and add the following (assuming you're using default VPN network settings)
+In the router web management console, browse to: Connectivity -> Advanced Routing. Select 'Add Static Route' and 
+add the following (assuming you're using default VPN network settings)
 
     Router Name: Sonos VPN
     Destination IP: 192.168.15.0
@@ -251,7 +241,7 @@ In the 'local/clients' directory, there are configurations for each client. They
 
 To install this configuration on a iPad assuming you're running on a mac, follow these steps:
 
-* copy your configuration to your icloud files
+* copy the client configuration to your icloud drive
 * on your ipad, download the wireguard app from the app store
 * click the '+' button and choose 'create from file or archive'
 * browse to your icloud drive and select the configuration
