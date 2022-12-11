@@ -1,10 +1,13 @@
 # Sonos over VPN
 
-This project describes how to access and control your Sonos speakers using the app over a VPN connection.
+This project describes how to remotely access and control your Sonos speakers using the app over a VPN 
+connection into your home network. It uses 'terraform' and 'ansible' to build and configure the wireguard VPN 
+server and creates wireguard configs for clients. It describes the manual steps you need to do to complete 
+the setup.
 
 I don't have a particularly good reason for doing this. I was motivated to figure it out because Sonos 
-and the network protocols they use make this difficult ... not necessarily deliberately; it was a 
-challenge and a chance to learn a thing or two.
+and the network protocols they use make this difficult ... not deliberately but by virtue of the protocols
+being utilised and their default configurations. It was a challenge and a chance to learn a thing or two.
 
 This could easily be adapted to work in scenarios where your Sonos speakers are on a different VLAN to
 your wifi, which could be useful.
@@ -150,6 +153,8 @@ This can also just be an IP address. However, this will probably change from tim
 to update it in your client config occasionally. A simple way to get your public IP address is with this:
 
     dig @resolver1.opendns.com +short myip.opendns.com
+
+You will need this IP address to complete the steps below.
 
 ## Build
 
