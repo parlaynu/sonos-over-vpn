@@ -65,7 +65,7 @@ and getting confused.
 
 ### Problem #2: Multicast Service Discovery 
 
-A multicast router is needed to forward the packets between networks. The build installs 'pimd' for this
+A multicast router is needed to forward the discovery packets between networks. The build installs 'pimd' for this
 and it works seemlessly with the default configuration.
 
 ### Problem #3: TTL Set To 1
@@ -262,16 +262,16 @@ To install this configuration on a iPad assuming you're running on a mac, follow
 * click the '+' button and choose 'create from file or archive'
 * browse to your icloud drive and select the configuration
 
-That should install the vpn for you and you should be ready to go.
+That will install the vpn profile and you should be ready to go.
 
 ### Connection and Operating
 
-To use the system, start with your mobile phone and enable your personal hotspot.
+To use the system:
 
-Connect your tablet to the hotspot network and start the vpn.
+* enable the personal hotspot on your mobile phone
+* connect your tablet's wifi to the hotspot
+* start the vpn on your tablet
+* start your sonos app on your tablet and wait for it to discover your speakers
 
-You should now be able to open your sonos app and control your speakers. You might need to fully kill the 
-app and load it again so it isn't trying to use any cached settings.
-
-
+You might need to fully kill the app and start it again so it isn't trying to use any cached settings.
 
