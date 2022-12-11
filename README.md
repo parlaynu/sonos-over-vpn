@@ -144,10 +144,8 @@ The two lines of interest look like this:
     ether b8:27:eb:81:53:de  txqueuelen 1000  (Ethernet)
 
 Log into your ISP provided router and create the reservation. This will be different for all routers; for mine,
-the process was:
-
-Navigate through the menus to: 'Connectivity' -> 'Local Network' and select 'DHCP Reservations'. Enter
-the name, MAC address and IP address from above. For the example above, these values are:
+the process was to navigate through the menus to: 'Connectivity' -> 'Local Network' and select 'DHCP Reservations'. 
+Enter the name, MAC address and IP address from above. For the example above, these values are:
 
     MAC address: b8:27:eb:81:53:de
     IP address: 192.168.1.21
@@ -218,7 +216,7 @@ I'll describe how these work on my ISP provided router, but yours will probably 
 In the router web management console, browse to: 'Security' -> 'Apps and Gaming' -> 'Single Port Forwarding'
 and select 'Add new Single Port Forwarding'. Enter the following in the dialog:
 
-    Name: Sonos
+    Name: SonosVPN
     Protocol: UDP
     WAN Port: 51820
     LAN POrt: 51820
@@ -231,7 +229,7 @@ If you have changed the port in the configuration, you'll need to change those p
 In the router web management console, browse to: 'Connectivity' -> 'Advanced Routing' and select 'Add Static Route'. 
 Add the following (assuming you're using default VPN network settings):
 
-    Router Name: Sonos VPN
+    Router Name: SonosVPN
     Destination IP: 192.168.15.0
     Subnet Mask: 255.255.255.0
     Gateway: <internal network IP address of RaspberryPi server>
