@@ -33,8 +33,8 @@ resource "local_file" "hostvars" {
     cidr_block       = var.local_network.cidr_block
     gateway          = var.local_network.gateway
 
-    vpn_endpoint_address = var.vpn_endpoint.address,
-    vpn_endpoint_port    = var.vpn_endpoint.listen_port
+    vpn_endpoint_address = var.vpn_network.endpoint,
+    vpn_endpoint_port    = var.vpn_network.listen_port
     
     vpn_cidr_block   = var.vpn_network.cidr_block
     vpn_netlen       = split("/", var.vpn_network.cidr_block)[1]

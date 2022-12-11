@@ -13,12 +13,9 @@
 # }
 
 # vpn_network = {
-#   cidr_block = "192.168.15.0/24"
-# }
-
-# vpn_endpoint = {
-#   address = "sonos.mydomain.com"       # DNS name or IP address
+#   endpoint = "sonos.mydomain.com"       # DNS name or IP address
 #   listen_port = 51820
+#   cidr_block = "192.168.15.0/24"
 # }
 
 # vpn_clients = [

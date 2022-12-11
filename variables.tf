@@ -29,22 +29,15 @@ variable "vpn_server" {
 
 variable "vpn_network" {
   type = object({
+    endpoint = string
+    listen_port = number
     cidr_block = string
   })
   default = {
+    endpoint = "sonos.mydomain.com"   # DNS name or IP address
+    listen_port = 51820
     cidr_block = "192.168.15.0/24"
   }  
-}
-
-variable "vpn_endpoint" {
-  type = object({
-    address = string
-    listen_port = number
-  })
-  default = {
-    address = "sonos.mydomain.com"   # DNS name or IP address
-    listen_port = 51820
-  }
 }
 
 variable "vpn_clients" {

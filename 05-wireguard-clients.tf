@@ -7,8 +7,8 @@ resource "local_file" "client_configs" {
     vpn_netlen       = split("/", var.vpn_network.cidr_block)[1]
     vpn_private_key  = wireguard_asymmetric_key.vpn_clients[each.key].private_key,
 
-    vpn_endpoint            = var.vpn_endpoint.address
-    vpn_endpoint_port       = var.vpn_endpoint.listen_port
+    vpn_endpoint            = var.vpn_network.endpoint
+    vpn_endpoint_port       = var.vpn_network.listen_port
     vpn_endpoint_public_key = wireguard_asymmetric_key.vpn_server.public_key
   })
     

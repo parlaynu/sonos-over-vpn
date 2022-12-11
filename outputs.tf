@@ -1,9 +1,5 @@
 
-/*output "vpn_endpoint" {
-  value = var.vpn_endpoint
-}
-
-output "local_network" {
+/*output "local_network" {
   value = var.local_network
 }
 
