@@ -29,11 +29,11 @@ further.
 
 Port forwarding is pretty standard. For my router, from the web management console, browse to:
 
-    Security -> Apps and Gaming -> Single Port Forwarding -> Add new Single Port Forwarding
+    'Security' -> 'Apps and Gaming' -> 'Single Port Forwarding' -> 'Add new Single Port Forwarding'
 
 For static routes, from the web management console, browse to:
 
-    Connectivity -> Advanced Routing -> Add Static Route
+    'Connectivity' -> 'Advanced Routing' -> 'Add Static Route'
 
 If you don't have equivalent features, then this isn't going to work for you.
 
@@ -44,7 +44,7 @@ There are four problems to overcome:
 * the app only works on wifi networks
 * the multicast service discovery protocol doesn't cross network boundaries
 * the service discovery packets have a TTL of 1
-* return traffic to the app use the app's actual IP address
+* return traffic from the speakers to the app use the app's actual IP address
 
 The build and operational instructions below address all these issues.
 
@@ -73,7 +73,7 @@ and it works seemlessly with the default configuration.
 Forwarding the packest isn't enough on it's own - as the packet TTL is 1, the packets won't make it into
 the other network without some additional work.
 
-A 'iptables' rule (in the 'mangle' table) is used to increment the TTL in the packets and send them 
+An 'iptables' rule (in the 'mangle' table) is used to increment the TTL in the packets and send them 
 happily into the second network.
 
 This is setup automatically by the build.
@@ -90,11 +90,16 @@ There are two consequences of this:
 * the speakers need to be able to route traffic back to the VPN network
 
 There are a number of ways to make this work and they are things you will need to do manually. One
-approach is using static routes on your ISP provided router and is documented below.
+approach is using static routes on your ISP provided router and is documented below. 
+
+Other approaches need more advanced networking setups and are up to you. I run my own network DNS/DHCP 
+server with 'dnsmasq' and have configured the default route for the sonos speakers to be the VPN server. 
+I tried setting a route for the VPN network only to the VPN server, but it didn't work for me - it appears
+that the sonos speakers only accept a default route from DHCP.
 
 ## Prerequisites
 
-There are a few things you need to setup manually to make this all work. They're described below.
+There are a few things you need to setup manually to make this all work.
 
 ### Admin Tools
 
@@ -123,10 +128,13 @@ Once it's built update the system with these commands:
 
 Once you can ssh into the server without being prompted for a password, you're ready to go.
 
-#### Create DHCP Reservation
+### Create DHCP Reservation for RaspberryPi Server
 
-I recommend creating a DHCP reservation for this server so it's IP address will never change. Once you
-have it built, you can find the MAC and IP addresses with this command:
+This is optional, but I recommend creating a DHCP reservation for this server so it's IP address will 
+never change. This doesn't happen often, but it can and if it does, you will need to update configurations
+on your router.
+
+The first step is to find the the MAC and IP addresses of your server with this command:
 
     ifconfig eth0
 
@@ -138,8 +146,11 @@ The two lines of interest look like this:
 Log into your ISP provided router and create the reservation. This will be different for all routers; for mine,
 the process was:
 
-Navigate through the menus to: Connectivity -> Local Network. Click on 'DHCP Reservations' and enter
-the name, MAC address and IP address from above. 
+Navigate through the menus to: 'Connectivity' -> 'Local Network' and select 'DHCP Reservations'. Enter
+the name, MAC address and IP address from above. For the example above, these values are:
+
+    MAC address: b8:27:eb:81:53:de
+    IP address: 192.168.1.21
 
 ### VPN Endpoint
 
@@ -204,8 +215,8 @@ I'll describe how these work on my ISP provided router, but yours will probably 
 
 ### Port Forwarding
 
-In the router web management console, browse to: Security -> Apps and Gaming -> Single Port Forwarding.
-Select 'Add new Single Port Forwarding' and in the dialog, enter the following:
+In the router web management console, browse to: 'Security' -> 'Apps and Gaming' -> 'Single Port Forwarding'
+and select 'Add new Single Port Forwarding'. Enter the following in the dialog:
 
     Name: Sonos
     Protocol: UDP
@@ -217,8 +228,8 @@ If you have changed the port in the configuration, you'll need to change those p
 
 ### Static Routes
 
-In the router web management console, browse to: Connectivity -> Advanced Routing. Select 'Add Static Route' and 
-add the following (assuming you're using default VPN network settings)
+In the router web management console, browse to: 'Connectivity' -> 'Advanced Routing' and select 'Add Static Route'. 
+Add the following (assuming you're using default VPN network settings):
 
     Router Name: Sonos VPN
     Destination IP: 192.168.15.0
