@@ -1,0 +1,13 @@
+## install packages
+
+- name: install pimd
+  apt:
+    name: pimd
+    state: present
+
+# wireguard will start/stop this
+- name: stop pimd
+  systemd:
+    name: pimd
+    state: stopped
+    enabled: false

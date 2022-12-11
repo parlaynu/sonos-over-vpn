@@ -1,0 +1,28 @@
+
+# local_network = {
+#   cidr_block = "192.168.1.0/24"
+#   gateway = "192.168.1.1"
+# }
+
+# vpn_server = {
+#   name = "sonos"
+#   interface = "eth0"
+#   local_ip = "192.168.1.4"
+#   username = "pi"
+#   ssh_key_file = "~/.ssh/rpi"
+# }
+
+# vpn_network = {
+#   cidr_block = "192.168.15.0/24"
+# }
+
+# vpn_endpoint = {
+#   address = "sonos.mydomain.com"       # DNS name or IP address
+#   listen_port = 51820
+# }
+
+# vpn_clients = [
+#   "client1",
+#   "client2"
+# ]
+
