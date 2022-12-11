@@ -7,9 +7,9 @@ and the network protocols they use make this difficult ... not necessarily delib
 challenge and a chance to learn a thing or two.
 
 This could easily be adapted to work in scenarios where your Sonos speakers are on a different VLAN to
-your wifi for example, which could be useful.
+your wifi, which could be useful.
 
-These instructions assume that you run a very simple network with just your ISPs router on your local
+These instructions assume that you run a very simple network with just your ISP provided router on your local
 network. If you're doing something more advanced, some of the details below will be different, but if you
 are doing advanced things, you will be easily able to adapt these instructions.
 
@@ -18,10 +18,10 @@ are doing advanced things, you will be easily able to adapt these instructions.
 Before getting too far into this, it's worth verifying that your network can provide two essential services
 this setup requires:
 
-* port forwarding from the internet side of your ISP router to an internal machine
+* port forwarding from the internet side of your ISP provided router to an internal machine
 * the ability to configure static routes
 
-I've seen ISP routers that can't configure static routes so it's worth verifying this before you go any
+I've seen ISP provided routers that can't configure static routes so it's worth verifying this before you go any
 further.
 
 Port forwarding is pretty standard. For my router, from the web management console, browse to:
@@ -86,8 +86,8 @@ There are two consequences of this:
 * can't have NAT anywhere between the app and the speakers
 * the speakers need to be able to route traffic back to the VPN network
 
-There are a number of ways to make this work and they're things you will need to do manually and one
-approach is documented below.
+There are a number of ways to make this work and they are things you will need to do manually. One
+approach is using static routes on your ISP provided router and is documented below.
 
 ## Prerequisites
 
@@ -132,7 +132,7 @@ The two lines of interest look like this:
     inet 192.168.1.21  netmask 255.255.255.0  broadcast 192.168.1.255
     ether b8:27:eb:81:53:de  txqueuelen 1000  (Ethernet)
 
-Log into your ISP router and create the reservation. This will be different for all routers; for mine,
+Log into your ISP provided router and create the reservation. This will be different for all routers; for mine,
 the process was:
 
 Navigate through the menus to: Connectivity -> Local Network. Click on 'DHCP Reservations' and enter
@@ -143,7 +143,7 @@ the name, MAC address and IP address from above.
 To use your VPN, you need a way to access the endpoint from outside your home/work network - this can 
 be either a DNS name or an IP address.
 
-For the DNS name, you can use a dynamic DNS provider and a lot of ISP routers have built in support
+For the DNS name, you can use a dynamic DNS provider and a lot of ISP provided routers have built in support
 for dynamic DNS. Now's a good time to set that up if you plan on using it.
 
 This can also just be an IP address. However, this will probably change from time to time so you'll need 
