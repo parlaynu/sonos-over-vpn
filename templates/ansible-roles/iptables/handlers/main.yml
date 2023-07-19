@@ -1,0 +1,6 @@
+- name: restore iptables v4
+  shell: /sbin/iptables-restore < /etc/iptables/rules.v4
+
+- name: restore iptables v6
+  shell: /sbin/ip6tables-restore < /etc/iptables/rules.v6
+

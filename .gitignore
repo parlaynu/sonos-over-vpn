@@ -1,0 +1,15 @@
+# os files
+.DS_Store
+
+# working directories
+local/
+
+# terraform files
+.terraform/
+.terraform.*
+*.tfstate
+*.tfstate.backup
+*.tfvars
+
+# ansible files
+*.retry

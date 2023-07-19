@@ -1,0 +1,49 @@
+- name: install wireguard-tools
+  apt:
+    name: wireguard-tools
+    state: present
+
+- name: install wireguard config file
+  template:
+    src: wireguard.conf
+    dest: /etc/wireguard/wg0.conf
+    owner: root
+    group: root
+    mode: 0440
+  notify:
+    - restart wireguard
+
+- name: create wireguard script directory
+  file:
+    path: /etc/wireguard/scripts
+    state: directory
+    owner: root
+    group: root
+    mode: 0750
+
+- name: install wireguard post-up script
+  template:
+    src: post-up.sh
+    dest: /etc/wireguard/scripts/post-up.sh
+    owner: root
+    group: root
+    mode: 0750
+  notify:
+    - restart wireguard
+
+- name: install wireguard pre-down script
+  template:
+    src: pre-down.sh
+    dest: /etc/wireguard/scripts/pre-down.sh
+    owner: root
+    group: root
+    mode: 0750
+  notify:
+    - restart wireguard
+
+- name: start wireguard
+  systemd:
+    name: wg-quick@wg0
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

@@ -1,0 +1,25 @@
+- name: install iptables-persistent
+  apt:
+    name: iptables-persistent
+    state: present
+
+- name: install iptable v4 rules
+  template:
+    src: rules.v4
+    dest: /etc/iptables/rules.v4
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restore iptables v4
+
+- name: install iptable v6 rules
+  template:
+    src: rules.v6
+    dest: /etc/iptables/rules.v6
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restore iptables v6
+
