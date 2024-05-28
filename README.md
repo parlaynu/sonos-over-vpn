@@ -10,7 +10,7 @@ network. If you're doing something more advanced, the details below will be diff
 
 See below for the challenges that need to be overcome. 
 
-Instructions for setting up the vpn server and networking are [here](docs/server-and-networking.md).
+Instructions for setting up the vpn server and networking are [here](docs/server-and-network.md).
 
 Instructions for setting up clients are [here](docs/client-setup.md).
 
